@@ -25,3 +25,17 @@ eureka:
   client:
     service-url: #eureka的地址信息
       defaultZone: http://127.0.0.1:10086/eureka
+
+# 改变负载规则方案二：只更改指定provider的负载规则（user-service）方案一配置在了OrderApplication中
+user-service:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+#ribbon默认采用懒加载，即第一次访问时才会创建LoadBalancedClient，请求时间会很长。而饥饿加载会在项目启动时创建，降低第一次访问的耗时。
+ribbon:
+  eager-load:
+    enabled: true #开启饥饿加载
+    clients:
+      - user-service #对指定的provider进行饥饿加载
+      #可指定多个
+      #- xxx-service
