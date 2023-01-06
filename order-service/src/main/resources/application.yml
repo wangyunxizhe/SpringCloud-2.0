@@ -9,6 +9,17 @@ spring:
     username: root
     password: 870814
     driver-class-name: com.mysql.jdbc.Driver
+  cloud:
+    nacos:
+      server-addr: 192.168.68.132:8848
+      discovery:
+        # 配置跟“某个”user-service（因为工作中可能部署了很多user-service）相同的集群，配合下面的Ribbon负载规则使用
+        cluster-name: NJ
+        # 可用于环境隔离，同namespace中的consumer和provider才能相互调用
+#        namespace: 比如nacos配置页面新建一个叫“dev”的命名空间 === 命名空间 - 新建命名空间 - 命名空间ID拷贝填在这里
+        # 是否临时实例，默认是临时。临时：每30s主动向nacos发送心跳告知健康与否，若失联nacos会立马将其移除出服务列表。
+        # 非临时：nacos主动询问服务是否可用，即使失联也不用被移除出服务列表。
+#        ephemeral: false
 
 mybatis:
   type-aliases-package: cn.wy.user.pojo
@@ -21,7 +32,25 @@ logging:
   pattern:
     dateformat: MM-dd HH:mm:ss:SSS
 
-eureka:
-  client:
-    service-url: #eureka的地址信息
-      defaultZone: http://127.0.0.1:10086/eureka
+# eureka的地址信息
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://127.0.0.1:10086/eureka
+
+# 改变负载规则方案二：只更改指定provider的负载规则（user-service）方案一配置在了OrderApplication中
+user-service:
+  ribbon:
+    # 随机负载
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    # 优先选用指定的集群（同集群），如集群中有多个服务，在这些服务里再按随机算法调用provider
+    NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule
+
+# ribbon默认采用懒加载，即第一次访问时才会创建LoadBalancedClient，请求时间会很长。而饥饿加载会在项目启动时创建，降低第一次访问的耗时。
+ribbon:
+  eager-load:
+    enabled: true #开启饥饿加载
+    clients:
+      - user-service #对指定的provider进行饥饿加载
+      #可指定多个
+      #- xxx-service
