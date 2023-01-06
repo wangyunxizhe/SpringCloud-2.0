@@ -54,3 +54,15 @@ ribbon:
       - user-service #对指定的provider进行饥饿加载
       #可指定多个
       #- xxx-service
+
+#开启Feign调用provider最详细的日志（也可以用Java代码的方式来完成同样的配置）
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+  #打开HttpClient开关，让Feign使用HttpClient来跟Provider通信
+  httpclient:
+    enabled: true
+    max-connections: 200 #最大连接数
+    max-connections-per-route: 50 #单个路径的最大连接数
