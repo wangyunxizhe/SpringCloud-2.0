@@ -12,7 +12,8 @@ import org.springframework.web.client.RestTemplate;
 
 @MapperScan("com.wy.order.mapper")
 @SpringBootApplication
-@EnableFeignClients
+//因为UserClient已经提取到单独的maven模块中，如果不指定包名@EnableFeignClients只会扫描当前包下的@FeignClient，这样就找不到UserClient了
+@EnableFeignClients(basePackages = "com.wy.feign.feignService")
 public class OrderApplication {
 
     public static void main(String[] args) {

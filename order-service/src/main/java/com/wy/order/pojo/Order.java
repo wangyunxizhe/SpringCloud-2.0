@@ -1,5 +1,6 @@
 package com.wy.order.pojo;
 
+import com.wy.feign.pojo.User;
 import lombok.Data;
 
 @Data

@@ -1,0 +1,4 @@
+问题：如有多个consumer（比如order-service、pay-service、xxx-service）都需要调用user-service，
+    那么在这些consumer中都需要写UserClient这样的FeignClient，优化思路如下：
+1，建立一个统一的FeignClient API，每个consumer都可以通过maven引入这个API，这个API里包括了接口，实体类，配置等等这些通用的代码。
+2，改变@EnableFeignClients注解默认的扫描路径，使其可以扫描到@FeignClient("user-service")，从而完成spring的加载。

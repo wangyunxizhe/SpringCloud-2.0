@@ -1,9 +1,9 @@
 package com.wy.order.service;
 
-import com.wy.order.feignService.UserClient;
+import com.wy.feign.feignService.UserClient;
+import com.wy.feign.pojo.User;
 import com.wy.order.mapper.OrderMapper;
 import com.wy.order.pojo.Order;
-import com.wy.order.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
