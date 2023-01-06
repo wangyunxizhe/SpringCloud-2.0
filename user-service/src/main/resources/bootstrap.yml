@@ -1,0 +1,12 @@
+#spring框架读取的优先级要高于application.yml，用于读取nacos配置中心里的配置（读取流程见 Nacos配置中心读取流程.png）
+#如果各配置文件中出现重名配置项，优先级 === 服务名-profile.yaml（nacos）> 服务名.yaml（nacos）> application.yml（本地配置）
+spring:
+  application:
+    name: user-service
+  profiles:
+    active: dev #指的是nacos配置页面上user-service-dev.yaml中的dev
+  cloud:
+    nacos:
+      server-addr: 192.168.68.132:8848
+      config:
+        file-extension: yaml #文件后缀名。结合application.name以及profiles.active，形成了完整的user-service-dev.yaml文件名
