@@ -32,11 +32,13 @@ public class UserController {
     /**
      * 路径： /user/110
      *
-     * @param id 用户id
+     * @param id   用户id
+     * @param talk 在gateway模块中，通过配置文件配置的过滤器增加的请求头
      * @return 用户
      */
     @GetMapping("/{id}")
-    public User queryById(@PathVariable("id") Long id) {
+    public User queryById(@PathVariable("id") Long id, @RequestHeader(value = "Talk", required = false) String talk) {
+        System.out.println("talk：" + talk);
         return userService.queryById(id);
     }
 
