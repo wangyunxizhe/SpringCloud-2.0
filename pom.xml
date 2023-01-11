@@ -16,6 +16,7 @@
         <module>gateway</module>
         <module>rabbit-publisher</module>
         <module>rabbit-consumer</module>
+        <module>es-demo</module>
     </modules>
 
     <packaging>pom</packaging>
