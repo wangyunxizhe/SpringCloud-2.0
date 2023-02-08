@@ -52,6 +52,12 @@
             <artifactId>feign-httpclient</artifactId>
         </dependency>
 
+        <!-- sentinel依赖 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
         <!-- 引入统一的自定义feign客户端 -->
         <dependency>
             <groupId>com.wy.cloud</groupId>

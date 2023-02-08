@@ -20,6 +20,10 @@ spring:
         # 是否临时实例，默认是临时。临时：每30s主动向nacos发送心跳告知健康与否，若失联nacos会立马将其移除出服务列表。
         # 非临时：nacos主动询问服务是否可用，即使失联也不用被移除出服务列表。
 #        ephemeral: false
+    #sentinel相关配置
+    sentinel:
+      transport:
+        dashboard: 192.168.68.132:8080
 
 mybatis:
   type-aliases-package: cn.wy.user.pojo
